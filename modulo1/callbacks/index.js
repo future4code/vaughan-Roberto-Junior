@@ -115,3 +115,30 @@ let arrYpeFrase = produtos.filter((item) =>{
 })
 
 console.log(arrYpeFrase);
+
+//DESAFIOOOOOOOOO !!!!!!!!
+
+const pokemons = [
+  { nome: "Bulbasaur", tipo: "grama" },
+  { nome: "Bellsprout", tipo: "grama" },
+  { nome: "Charmander", tipo: "fogo" },
+  { nome: "Vulpix", tipo: "fogo" },
+  { nome: "Squirtle", tipo: "água" },
+  { nome: "Psyduck", tipo: "água" },
+]
+
+let pokeOrdem = pokemons.map((item)=>{
+   return item.nome
+})
+
+console.log(pokeOrdem.sort());
+
+//B
+
+let pokeTipo = pokemons.map((item)=>{
+  return item.tipo
+});
+
+let newP = pokeTipo.filter((este, i) => pokeTipo.indexOf(este) === i);
+
+console.log(newP);
