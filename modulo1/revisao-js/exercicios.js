@@ -174,11 +174,27 @@ contas[0].compras = [];
   return contas;
 }
  
-
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
+      
+     return consultas.sort((a,b)=>{
+
+     if (a.nome < b.nome){
+        return -1;
+     }
+     if (a.nome > b.nome){
+       return 1;
+   }
+     });
 
 }
 
 // EXERCÍCIO 15B
-function retornaArrayOrdenadoPorData(consultas) {}
+function retornaArrayOrdenadoPorData(consultas) {
+
+    consultas.sort(function(a,b) { 
+        return new Date(a.dataDaConsulta).getTime() - new Date(b.dataDaConsulta).getTime() 
+    });
+
+    return consultas;
+}
