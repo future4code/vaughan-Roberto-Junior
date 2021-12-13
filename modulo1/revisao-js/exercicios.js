@@ -74,36 +74,58 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 function retornaNPrimeirosPares(n) {
   arr = [];
   arrFinal = [];
-  
+
   for (i = 0; i < 100; i++) {
     arr.push(i);
   }
-  newArr = arr.filter((a)=>{
-      return a%2 === 0;
+  newArr = arr.filter((a) => {
+    return a % 2 === 0;
   });
 
-  for(i=0; i<n;i++){
+  for (i = 0; i < n; i++) {
     arrFinal.push(newArr[i]);
   }
-  
+
   return arrFinal;
 }
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
-    
-
-    if(ladoA == ladoB && ladoC == ladoA && ladoC == ladoB){
-        return 'Equilátero';
-    }else if(ladoA == ladoB || ladoC == ladoA || ladoC == ladoB){
-        return 'Isósceles';
-    }else{
-        return 'Escaleno';
-    }
+  if (ladoA == ladoB && ladoC == ladoA && ladoC == ladoB) {
+    return "Equilátero";
+  } else if (ladoA == ladoB || ladoC == ladoA || ladoC == ladoB) {
+    return "Isósceles";
+  } else {
+    return "Escaleno";
+  }
 }
 
 // EXERCÍCIO 10
-function retornaSegundoMaiorESegundoMenor(array) {}
+function retornaSegundoMaiorESegundoMenor(array) {
+  newArr = array;
+  arrFinal = [];
+
+  if (array[2] == undefined) {
+    arrFinal = array;
+  } else {
+    let maiorNumero = Math.max.apply(Math, newArr);
+    let menorNumero = Math.min.apply(Math, newArr);
+
+    index1 = newArr.indexOf(maiorNumero);
+    index2 = newArr.indexOf(menorNumero);
+
+    newArr.splice(index1, 1);
+    newArr.splice(index2, 1);
+
+    numeroMaior = Math.max.apply(Math, newArr);
+    numeroMenor = Math.min.apply(Math, newArr);
+
+    arrFinal.push(numeroMaior);
+    arrFinal.push(numeroMenor);
+  }
+
+  return arrFinal;
+}
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {}
