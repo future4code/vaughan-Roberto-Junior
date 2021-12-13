@@ -142,10 +142,22 @@ function retornaPessoaAnonimizada(pessoa) {
 }
 
 // EXERCÍCIO 13A
-function retornaPessoasAutorizadas(pessoas) {}
+function retornaPessoasAutorizadas(pessoas) {
+    pessoasAutorizadas = pessoas.filter((i)=>{
+        return i.idade < 60 && i.altura >= 1.5 && i.idade > 14;
+    });
+
+    return pessoasAutorizadas;
+}
 
 // EXERCÍCIO 13B
-function retornaPessoasNaoAutorizadas(pessoas) {}
+function retornaPessoasNaoAutorizadas(pessoas) {
+    pessoasNaoAutorizadas = pessoas.filter((i)=>{
+        return !(i.idade < 60 && i.altura >= 1.5 && i.idade > 14);
+    });
+
+    return pessoasNaoAutorizadas;
+}
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {}
