@@ -90,7 +90,17 @@ function retornaNPrimeirosPares(n) {
 }
 
 // EXERCÍCIO 09
-function classificaTriangulo(ladoA, ladoB, ladoC) {}
+function classificaTriangulo(ladoA, ladoB, ladoC) {
+    
+
+    if(ladoA == ladoB && ladoC == ladoA && ladoC == ladoB){
+        return 'Equilátero';
+    }else if(ladoA == ladoB || ladoC == ladoA || ladoC == ladoB){
+        return 'Isósceles';
+    }else{
+        return 'Escaleno';
+    }
+}
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {}
