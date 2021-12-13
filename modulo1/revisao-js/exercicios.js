@@ -160,10 +160,25 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 }
 
 // EXERCÍCIO 14
-function retornaContasComSaldoAtualizado(contas) {}
+function retornaContasComSaldoAtualizado(contas) {
+  total = contas[0].compras;
+  arr = [...total];
+
+  var soma = arr.reduce(function(soma, i) {
+    return soma + i;
+});
+
+contas[0].saldoTotal = (contas[0].saldoTotal)-(soma);
+contas[0].compras = [];
+
+  return contas;
+}
+ 
 
 // EXERCÍCIO 15A
-function retornaArrayOrdenadoAlfabeticamente(consultas) {}
+function retornaArrayOrdenadoAlfabeticamente(consultas) {
+
+}
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {}
