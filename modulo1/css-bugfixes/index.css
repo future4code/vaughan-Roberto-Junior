@@ -67,6 +67,10 @@ div img {
     height: 15px;
     width: 35px;
 }
+input{
+    border : 0;
+    border-bottom: 3px solid;
+}
 
 
 /** 
