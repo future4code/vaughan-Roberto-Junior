@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Adicionar Produto</title>
+</head>
+<body>
+    <div class="quadrado">
+    <div>
+        <h1><p>Filhos Da Fruta</p></h1>
+    </div>
+    
+    <div class="menu">
+        <a href="/index.html">Página Inicial</a>
+        <a href="/ctrl-estoque.html">Controle de Estoque</a>
+        <a href="/add-produto.html">Adicionar Produto</a>
+        <a href="/funcionarios.html">Funcionários</a>
+        <a href="/historico.html">Histórico</a>
+    </div>
+
+    
+    <h2>Pagina de Vendas</h2>
+    <form action="">
+        <div>
+            <label for="vendedor">Vendedor: </label>
+            <select name="select">
+                <option value="valor1">Jax</option>
+                <option value="valor2" selected>Chibs</option>
+                <option value="valor3">Clay</option>
+                <option value="valor4">Happy</option>
+                <option value="valor5">Tigg</option>
+              </select><br>
+              <label for="frutas">Fruta:</label>
+              <select name="select">
+                <option value="valor1">Banana</option>
+                <option value="valor2" selected>Maçã</option>
+                <option value="valor3">Goiaba</option>
+                <option value="valor4">Melancia</option>
+                <option value="valor5">Mamão</option>
+              </select><br/>
+              <label for="frutas">Quantidade:</label>
+              <input type="number" min="1" max="100">
+              <br>
+            <input type="radio" id="cartao" checked>
+            <label for="cartao">Cartão</label><br>
+            <input type="radio" id="money">
+            <label for="money">Dinheiro</label><br>
+        </div>
+
+        <div class="form-add">
+            <!-- Adicione ao type do botão abaixo o valor para que ele submeta o formulário -->
+            <button type="submit">Adicionar</button>
+        </div>
+
+    </form>
+    <h3><footer><hr>Desenvolvido por: Roberto Maia</footer></h3>
+    </div>
+</body>
+</html>
