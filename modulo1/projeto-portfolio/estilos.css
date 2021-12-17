@@ -1,0 +1,136 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    color: #F9F9F9 ;
+    background-color: #242323;
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.div-central{
+    margin: 2px 300px;
+    border: solid #828282 1px;
+    background-color: #1A1A1A;
+}
+.div-central>h1{
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+.container-topo{
+    z-index: 2;
+    position: sticky;   
+    top: 0;
+}
+.container-topo>nav{
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+    
+}
+.div-central>b{
+    display: block;
+    margin-top: 30px;
+    font-size: 40px;
+    color: gold;
+}
+.menu>a:hover{
+    color: gold;
+    font-size: 35px;
+}
+.menu>a{
+    color: white;
+    padding: 5px;
+}
+.div-central>p{
+    color: gold;
+    font-weight: 400;
+    margin-top: 1px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.foto-user{
+    margin-top: 70px;
+    width: 200px;
+}
+.centralizar-conteudo{
+  margin-top: 100px;
+  padding: 0 100px;
+}
+.skills{
+    margin-top: 100px;
+}
+.skills>img{
+    padding-top: 20px;
+    width: 70px;
+}
+.skills>div>h2{
+    color: white !important;
+}
+.project{
+    margin-top: 100px;
+}
+.instituicoes{
+    margin-top: 100px;
+}
+.redes>a>img{
+    padding: 0 10px;
+    padding-top: 20px;
+    width: 70px;
+}
+.redes{
+    margin-top: 100px;
+}
+.projetos{
+    padding: 0 50px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+.projetos>a>img{
+    width: 200px;
+}
+footer{
+    bottom: 10px;
+    left: calc(50% - 50px); 
+    padding-bottom: 10px;
+}
+footer>span{
+    color: yellowgreen;
+    font-weight: bold;
+}
+hr{
+    margin-top: 50px;
+}
+ol{
+    margin-top: 50px;
+}
+li{
+    margin-left: 47%;
+    width: 10px;
+    height: 20px;
+    list-style-type:disc;
+}
+form{
+    text-align: center;
+    border: solid 1px gray;
+    border-radius: 1em;
+    padding: 40px 5px;
+    margin: 50px auto;
+    width: 400px;
+}
+form div + div {
+    margin-top: 1em;
+}
+input, textarea {
+    font: 1em sans-serif;
+    width: 200px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.li-inicio>li{
+    font-weight: bold;
+    margin-left: 250px;
+    width: 500px;
+    height: 50px;
+}
