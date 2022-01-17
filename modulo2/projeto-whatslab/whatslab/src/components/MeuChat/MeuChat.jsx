@@ -86,7 +86,7 @@ class MeuChat extends React.Component {
               placeholder="Mensagem"
               value={this.props.valorMsg}
               onChange={this.props.inputMsg}
-              id="enter"
+              onKeyPress={this.props.onKeyPress}
             />
 
             <BotaoEnviar src={imagemSeta} onClick={this.props.clickBotao} />

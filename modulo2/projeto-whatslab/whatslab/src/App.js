@@ -9,9 +9,13 @@ class App extends React.Component {
     conteudo: "",
   };
 
-  adicionaMensagem = () => {
+  EnviarComEnter = (e) => {
+    if (e.key === "Enter") {
+      this.adicionaMensagem();
+    }
+  };
 
-     if(this.state.remetente === '' || this.state.conteudo === ''){alert('Preencha Os Campos Corretamente !')}
+  adicionaMensagem = () => {
 
     const novaMensagem = {
       remetente: `${this.state.remetente}:`,
@@ -36,8 +40,11 @@ class App extends React.Component {
       remetente: event.target.value,
     });
   };
+    
+
 
   render() {
+
 
     const MensagemRenderizada = this.state.pessoa.map((msg) => {
       if (msg.remetente === "" || msg.remetente === ":" || msg.conteudo === "") {
@@ -59,6 +66,7 @@ class App extends React.Component {
           valorRem={this.state.remetente}
           valorMsg={this.state.conteudo}
           msgRender={MensagemRenderizada}
+          onKeyPress={this.EnviarComEnter}
         />
       </>
     );
