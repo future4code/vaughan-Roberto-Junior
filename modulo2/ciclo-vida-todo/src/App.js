@@ -4,16 +4,30 @@ import './styles.css'
 
 const TarefaList = styled.ul`
   padding: 0;
-  width: 200px;
+  /* width: 200px; */
 `
 
-const Tarefa = styled.li`
+const Tarefa = styled.div`
+  display: flex;
+  width: 300px;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2%;
+  margin: 10px auto;
   text-align: left;
+  border: 2px solid gray;
   text-decoration: ${({completa}) => (completa ? 'line-through' : 'none')};
-  color: ${({completa}) => (completa ? 'red' : 'none')};
+  background-color: ${({completa}) => (completa ? 'red' : 'none')};
 `
 
 const InputsContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+`
+
+const AlinharBotoes = styled.div`
   display: grid;
   grid-auto-flow: column;
   gap: 10px;
@@ -72,9 +86,13 @@ class App extends React.Component {
   selectTarefa = (id) => {
 
     const novaLista = this.state.tarefas.map((item) => {
-       if (item.id === id){
+
+         if (item.id === id){
+
          const novoEstado = {...item, completa: !item.completa}
+
          return novoEstado;
+
        }else{return item}
        
       })
@@ -100,6 +118,19 @@ class App extends React.Component {
 
   }
 
+  apagarPost = (id) => {
+    const postsQueFicam = this.state.tarefas.filter((item) => {
+       if (item.id === id){
+         return false;
+       }else{
+         return true;
+       }
+    }) 
+
+   this.setState({tarefas: postsQueFicam});
+
+  }
+
   render() {
 
 
@@ -112,7 +143,7 @@ class App extends React.Component {
           case '':
           return tarefa.texto
         default:
-          return;
+          return ;
       }
     })
 
@@ -137,12 +168,19 @@ class App extends React.Component {
         <TarefaList>
           {listaFiltrada.map(tarefa => {
             return (
+              // <>
               <Tarefa
                 completa={tarefa.completa}
-                onClick={() => this.selectTarefa(tarefa.id)}
+                
               >
                 {tarefa.texto}
+                <AlinharBotoes>
+                <button onClick={() => this.selectTarefa(tarefa.id)}>Feito</button>
+                <button onClick={() => this.apagarPost(tarefa.id)}>apagar</button>
+                </AlinharBotoes>
               </Tarefa>
+              
+              // </>
             )
           })}
         </TarefaList>
