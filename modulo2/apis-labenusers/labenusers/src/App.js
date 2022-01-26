@@ -3,11 +3,11 @@ import styled from "styled-components";
 import CadastroUsario from "./components/CadastroUsuario";
 import ListaUsuario from "./components/ListaUsuario";
 import React from "react";
+import DetalheDoUser from "./components/DetalheDoUser";
 
 const DivPai = styled.div`
   display: flex;
   justify-content: center;
-
 `;
 
 const DivDoCentro = styled.div`
@@ -23,11 +23,11 @@ const DivDoCentro = styled.div`
 const TrocarTela = styled.button`
   width: 20%;
   margin-bottom: 30px;
-`
+`;
 
 const Inputs = styled.div`
   margin-bottom: 30px;
-`
+`;
 
 class App extends React.Component {
   state = {
@@ -37,6 +37,8 @@ class App extends React.Component {
     inputEmail: "",
 
     tela: 1,
+
+    id: 0
   };
 
   trocaDeTela = () => {
@@ -45,6 +47,11 @@ class App extends React.Component {
     } else {
       this.setState({ tela: 1 });
     }
+  };
+
+  irParaDetalhes = (id) => {
+    this.setState({ tela: 3 });
+    this.setState({id: id})
   };
 
   changeName = (e) => {
@@ -80,7 +87,6 @@ class App extends React.Component {
     axios
       .get(url, autorizacao)
       .then((resp) => {
-        console.log("Deu Certo");
         this.setState({ users: resp.data });
         // this.setState({users: resp.data.result.list})
       })
@@ -108,25 +114,40 @@ class App extends React.Component {
             getUser={this.getUser}
             lista={this.state.users}
             deletar={this.excluir}
+            detalhes={this.irParaDetalhes}
+          />
+        );
+      case 3:
+        return (
+          <DetalheDoUser 
+          key={this.state.id} 
+          idUserDetails={this.state.id} 
+          funcExcluir={this.excluir}
           />
         );
     }
   };
 
   excluir = (id) => {
-    const url = `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`;
-    const autorizacao = { headers: { Authorization: "roberto-maia-vaughan" } };
+    if (window.confirm("Tem certeza de que deseja deletar?")) {
+      const url = `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`;
+      const autorizacao = {
+        headers: { Authorization: "roberto-maia-vaughan" },
+      };
 
-    axios
-      .delete(url, autorizacao)
-      .then((resp) => {
-        alert("Deletado com Sucesso !");
-        this.getUser();
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Não Foi Possível Deletar");
-      });
+      axios
+        .delete(url, autorizacao)
+        .then((resp) => {
+          alert("Deletado com Sucesso !");
+          this.getUser();
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Não Foi Possível Deletar");
+        });
+    } else {
+      alert("Usuário não deletado.");
+    }
   };
 
   render() {
@@ -135,9 +156,7 @@ class App extends React.Component {
         <DivDoCentro>
           <h1>Labenusers</h1>
           <TrocarTela onClick={this.trocaDeTela}>Trocar De Tela</TrocarTela>
-          <Inputs>
-          {this.renderizaEtapa()}
-          </Inputs>
+          <Inputs>{this.renderizaEtapa()}</Inputs>
         </DivDoCentro>
       </DivPai>
     );
