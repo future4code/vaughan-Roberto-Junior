@@ -3,16 +3,58 @@ import axios from "axios";
 import GetAllPlaylist from "./components/GetAllPlaylist/GetAllPlaylist";
 import CreatePlaylist from "./components/CreatePlaylist/CreatePlaylist";
 import styled from "styled-components";
+import InitialPage from "./components/InitialPage/InitialPage";
+import "./App.css";
 
 const DivPai = styled.div`
   display: flex;
+  background-image: linear-gradient(to right, cyan, yellow);
   justify-content: center;
-`
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 20px white;
+  width: 40%;
+  margin: 50px auto;
+  padding: 10px 10px 40px 10px;
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  div > button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 10px 0;
+    border-color: black;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      background-color: white;
+      color: black;
+      cursor: grabbing;
+      background-image: linear-gradient(to right, white, cyan);
+    }
+  }
+
+  input {
+    border-radius: 10px white;
+    padding: 5px;
+  }
+`;
+
+const ImgNota = styled.img`
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 30px;
+  height: 30px;
+`;
 
 class App extends React.Component {
   state = {
     playlist: [],
-    page: "create",
+    page: "",
     inputValue: "",
   };
 
@@ -61,20 +103,24 @@ class App extends React.Component {
   };
 
   deletePlaylist = (id) => {
+    if (window.confirm("Deseja mesmo apagar essa playlist ?")) {
+      const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}`;
+      const authorization = {
+        headers: { Authorization: "roberto-maia-vaughan" },
+      };
 
-    const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}`
-    const authorization = {headers:{Authorization: 'roberto-maia-vaughan'}}
-
-    axios.delete(url, authorization)
-    .then((resp) => {
-      alert('Playlist Deletada Com Sucesso !!')
-      this.getAllPlaylist();
-    }).catch((err) => {
-      alert('Houve um erro ao deletar a playlist selecionada');
-      console.log(err.response);
-    })
-
-  }
+      axios
+        .delete(url, authorization)
+        .then((resp) => {
+          alert("Playlist Deletada Com Sucesso !!");
+          this.getAllPlaylist();
+        })
+        .catch((err) => {
+          alert("Houve um erro ao deletar a playlist selecionada");
+          console.log(err.response);
+        });
+    }
+  };
 
   handlerInput = (e) => {
     this.setState({ inputValue: e.target.value });
@@ -91,28 +137,41 @@ class App extends React.Component {
           />
         );
       case "getall":
-        return <GetAllPlaylist 
-        getAllPlaylist={this.getAllPlaylist} 
-        playlist={this.state.playlist}
-        delete={this.deletePlaylist}
-        />;
+        return (
+          <GetAllPlaylist
+            getAllPlaylist={this.getAllPlaylist}
+            playlist={this.state.playlist}
+            delete={this.deletePlaylist}
+          />
+        );
+      case "initial":
+        return <InitialPage />;
       default:
-        return <CreatePlaylist />;
+        return <InitialPage />;
     }
   };
 
   changePage = (param) => {
-     this.setState({page: param})
-  }
+    this.setState({ page: param });
+  };
 
   render() {
-    return <DivPai>
-      <div>
-        <button onClick={() => this.changePage('create')}>Criar Playlist</button>
-        <button onClick={() => this.changePage('getall')}>Visualizar Playlists</button>
-      {this.renderPage()}
-      </div>
-      </DivPai>;
+    return (
+      <DivPai>
+        <div>
+          <button onClick={() => this.changePage("initial")}>
+            Página Inicial
+          </button>
+          <button onClick={() => this.changePage("create")}>
+            Criar Playlist
+          </button>
+          <button onClick={() => this.changePage("getall")}>
+            Visualizar Playlists
+          </button>
+          {this.renderPage()}
+        </div>
+      </DivPai>
+    );
   }
 }
 

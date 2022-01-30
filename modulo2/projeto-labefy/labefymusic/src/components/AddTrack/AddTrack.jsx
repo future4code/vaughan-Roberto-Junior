@@ -33,7 +33,7 @@ class AddTrack extends React.Component {
         />
          <input
           type="text"
-          placeholder="Link do MP3"
+          placeholder="Link da Musica"
           value={this.props.url}
           onChange={this.props.handlerUrl}
         />
