@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import accept from "./img/accept.png";
 import del from "./img/del2.png";
 import axios from "axios";
-import {CardMatch, BottonsLike, MatchsList} from './styles'
+import {CardMatch, BottonsLike, MatchsList, ButtonMatch} from './styles'
 
 
 
@@ -131,9 +131,9 @@ function App() {
   const CardPerson = () => {
     return (
       <>
-        <button onClick={changeScreen} type="button" className="btn btn-info">
+        <ButtonMatch onClick={changeScreen} type="button" className="btn btn-info">
           Ver Matchs
-        </button>
+        </ButtonMatch>
         {profiles.length === 0 ? <h1>carregando ..</h1> :
         <>
         <h1>{profiles.name}</h1>

@@ -57,3 +57,7 @@ export const MatchsList = styled.div`
     box-shadow: none;
   }
 `;
+
+export const ButtonMatch = styled.button`
+   box-shadow: 1px 1px 5px black;
+`
