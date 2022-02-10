@@ -1,30 +1,24 @@
 import "./index.css";
 import Axios from "axios";
-import { useEffect, useState } from "react";
-import accept from "./img/accept.png";
-import del from "./img/del2.png";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {CardMatch, BottonsLike, MatchsList, ButtonMatch} from './styles'
-
-
+import { CardMatch } from "./styles";
+import MatchArea from "./components/MatchArea";
+import CardPerson from "./components/CardPerson";
 
 function App() {
-
   //states
   const [profiles, setProfiles] = useState({});
   const [matchs, setMatchs] = useState([]);
   const [screen, setScreen] = useState(false);
 
-
- //Função que chama a requisição quando a pagina for montada
+  //Função que chama a requisição quando a pagina for montada
   useEffect(() => {
     requestPerson();
   }, []);
 
-
   //variavel global
   const aluno = "Roberto-Maia-Vaughan";
-
 
   //requisição que pega os perfis
   const requestPerson = () => {
@@ -59,7 +53,6 @@ function App() {
       });
   };
 
-
   //requisição para limpar os matches
   const clearMatches = () => {
     const url = `https://us-central1-missao-newton.cloudfunctions.net/astroMatch/${aluno}/clear`;
@@ -74,7 +67,6 @@ function App() {
         alert("Ops! tente Novamente");
       });
   };
-
 
   //requisição que retorna os matchs
   const yourMatches = () => {
@@ -91,69 +83,40 @@ function App() {
       });
   };
 
-
   //função para selecionar a tela
   const changeScreen = () => {
     setScreen(!screen);
   };
 
 
-  //area de matchs
-  const matchArea = () => {
-    return (
-      <>
-        {yourMatches()}
-
-        <button onClick={changeScreen} type="button" className="btn btn-dark">
-          Retornar
-        </button>
-        {matchs.length === 0 ? (
-          <h5>Nenhum Match ainda =( continue tentando</h5>
-        ) : (
-          matchs.map((item) => {
-            return (
-              <MatchsList>
-                <img src={item.photo} />
-                {item.name}
-              </MatchsList>
-            );
-          })
-        )}
-        <button type="button" className="btn btn-danger" onClick={clearMatches}>
-          Resetar
-        </button>
-      </>
-    );
-  };
-
-
-  //area dos perfis
-  const CardPerson = () => {
-    return (
-      <>
-        <ButtonMatch onClick={changeScreen} type="button" className="btn btn-info">
-          Ver Matchs
-        </ButtonMatch>
-        {profiles.length === 0 ? <h1>carregando ..</h1> :
-        <>
-        <h1>{profiles.name}</h1>
-        <img src={profiles.photo} />
-        <br />
-        <strong>idade: {profiles.age}</strong>
-        <h4>{profiles.bio}</h4>
-        <BottonsLike>
-          <img src={accept} onClick={pushMatch} />
-          <img src={del} onClick={requestPerson} />
-        </BottonsLike>
-        </>
-       }
-      </>
-    );
+  //swipeCards
+  const onSwipe = (direction) => {
+    if (direction === "left") {
+      pushMatch();
+    } else if (direction === "right") {
+      requestPerson();
+    }
   };
 
   return (
     <div className="App">
-      <CardMatch>{screen ? matchArea() : CardPerson()}</CardMatch>
+      <CardMatch>
+        {screen ? (
+          <MatchArea
+            changeScreen={changeScreen}
+            matchs={matchs}
+            clearMatches={clearMatches}
+            yourMatches={yourMatches}
+          />
+        ) : 
+          <CardPerson 
+          profiles={profiles}
+          changeScreen={changeScreen}
+          requestPerson={requestPerson}
+          onSwipe={onSwipe}
+          />
+        }
+      </CardMatch>
     </div>
   );
 }

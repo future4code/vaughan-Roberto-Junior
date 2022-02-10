@@ -40,6 +40,10 @@ export const BottonsLike = styled.div`
     box-shadow: 1px 1px 10px black;
     border-radius: 50%;
   }
+
+  strong{
+    margin: 10% 0;
+  }
 `;
 export const MatchsList = styled.div`
   display: flex;
@@ -56,8 +60,33 @@ export const MatchsList = styled.div`
     border-radius: 50%;
     box-shadow: none;
   }
+
+  &:hover{
+    background: #87CEFA;
+  }
 `;
 
-export const ButtonMatch = styled.button`
-   box-shadow: 1px 1px 5px black;
+export const ButtonMatch = styled.img`
+   width: 10% !important;
+   height: 10% !important;
+   box-shadow: none !important;
+
+   &:hover{
+     cursor: pointer;
+     width: 11% !important;
+   }
 `
+
+
+export const TitleButton = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2%;
+  margin: 3% 0;
+`
+
+export const AgePerson = styled.b`
+  font-size: 1.5em;
+  margin-bottom: 20% !important;
+`
+
