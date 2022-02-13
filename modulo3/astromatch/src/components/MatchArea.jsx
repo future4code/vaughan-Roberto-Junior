@@ -1,9 +1,45 @@
 import { MatchsList } from "../styles";
+import axios from "axios";
+import { useState } from "react";
 
 function MatchArea(props) {
+
+  
+  const [matchs, setMatchs] = useState([]);
+
+    //requisição que retorna os matchs
+    const yourMatches = () => {
+      const url = `https://us-central1-missao-newton.cloudfunctions.net/astroMatch/${props.aluno}/matches`;
+  
+      axios
+        .get(url)
+        .then((resp) => {
+          setMatchs(resp.data.matches);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+      //requisição para limpar os matches
+  const clearMatches = () => {
+    const url = `https://us-central1-missao-newton.cloudfunctions.net/astroMatch/${props.aluno}/clear`;
+
+    axios
+      .put(url)
+      .then((response) => {
+        alert("Matchs Deletados !");
+        yourMatches();
+      })
+      .catch((err) => {
+        alert("Ops! tente Novamente");
+      });
+  };
+
+    
   return (
     <>
-      {props.yourMatches()}
+      {yourMatches()}
 
       <button
         onClick={() => props.changeScreen()}
@@ -12,10 +48,10 @@ function MatchArea(props) {
       >
         Retornar
       </button>
-      {props.matchs.length === 0 ? (
-        <h5>Nenhum Match ainda =( continue tentando</h5>
+      {matchs.length === 0 ? (
+        <h5>Nenhum Match ainda 	&#128517; continue tentando &#127919;</h5>
       ) : (
-        props.matchs.map((item) => {
+       matchs.map((item) => {
           return (
             <MatchsList key={item.id}>
               <img src={item.photo} />
@@ -27,7 +63,7 @@ function MatchArea(props) {
       <button
         type="button"
         className="btn btn-danger"
-        onClick={() => props.clearMatches()}
+        onClick={clearMatches}
       >
         Resetar
       </button>
