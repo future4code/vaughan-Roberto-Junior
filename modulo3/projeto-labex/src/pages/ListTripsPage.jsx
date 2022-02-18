@@ -1,10 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-// import FunctionRouterPages from '../Hooks/FunctionRouterPages'
 import { RequestTrips } from "../Hooks/RequestTrips";
 import {DivListTrips, DivButtons, GridCards, CardTrips} from './styles'
+
 
 export default function ListTripsPage() {
 
@@ -14,15 +11,15 @@ export default function ListTripsPage() {
       navigate(url);
   }
 
-  const allTrips = RequestTrips('Roberto-Maia-Vaughan');
+  const [allTrips, functionRequest] = RequestTrips('Roberto-Maia-Vaughan');
 
 
 
   return (
     <DivListTrips>
       <DivButtons>
-        <button onClick={() => FunctionRouterPages('/')}>Voltar</button>
-        <button onClick={() => FunctionRouterPages('/trips/application')}>Inscrever-se</button>
+        <button className="btn btn-info" onClick={() => FunctionRouterPages('/')}>Voltar</button>
+        <button className="btn btn-info" onClick={() => FunctionRouterPages('/trips/application')}>Inscrever-se</button>
       </DivButtons>
       <h2>Lista De Viagens</h2>
 

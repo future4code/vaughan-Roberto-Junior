@@ -19,7 +19,7 @@ export default function Router(){
               <Route exact path='/admin/trips/list' element={<AdminHomePage />}/>
               <Route exact path='/admin/trips/create' element={<CreateTripPage />}/>
               <Route exact path='/admin/trips/:id' element={<TripDetailsPage />}/>
-              <Route exact path='*' element={<ErrorPage />}/>
+              <Route path='*' element={<ErrorPage />}/>
           </Routes>
         </BrowserRouter>
     )

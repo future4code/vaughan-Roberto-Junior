@@ -1,18 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import error from "../img/404.jpg";
-
-const ImgError = styled.img`
-  width: 100%;
-  height: 100vh;
-`;
 
 const DivError = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: black;
 

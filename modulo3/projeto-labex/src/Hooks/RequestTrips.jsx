@@ -26,6 +26,6 @@ export const RequestTrips = (aluno) => {
       });
   };    
 
-  return allTrips;
+  return [allTrips, renderListTrips];
 
 };
