@@ -1,4 +1,4 @@
-import imgAstro from "../img/astronauta2.png";
+import imgAstro from "../../img/astronauta2.png";
 import {DivHome, BottonImg, ImgLogo} from './styles'
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ export default function HomePage(){
             Area De ADM
           </button>
         </div>
-        <ImgLogo src={imgAstro} />
+        <ImgLogo src={imgAstro} alt='logo de astronauta'/>
       </BottonImg>
     </DivHome>
   );

@@ -1,29 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-
-const DivError = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-
-  div{
-      width: 50%;
-      text-align: center;
-  }
-
-  h1{
-      color: white;
-      font-size: 5em;
-  }
-
-  button {
-      width: 20%;
-  }
-`;
+import {DivError} from './styles'
 
 export default function ErrorPage() {
 

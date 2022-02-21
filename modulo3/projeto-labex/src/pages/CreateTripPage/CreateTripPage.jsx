@@ -1,45 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useForm from "../Hooks/useForm";
-import styled from "styled-components";
-import SpaceForm from '../img/spaceForm.png'
+import useForm from "../../Hooks/useForm";
+import {CreateTrip, CardForm, DivButtonsCreateTrip} from './styles'
 
-const CreateTrip = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-`;
-
-const CardForm = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3% 0;
-  flex-direction: column;
-  width: 30%;
-  color: white;
-  background-image: url(${SpaceForm});
-  box-shadow: 1px 1px 20px cyan;
-  
-
-  input{
-    margin: 3% 0;
-  }
-
-  @media (max-width: 600px){
-    width: 90%;
-  }
-`;
-
-const DivButtonsCreateTrip = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  margin-top: 5%;
-`
 
 export default function CreateTripPage() {
   const { form, onChange, cleanFields } = useForm({

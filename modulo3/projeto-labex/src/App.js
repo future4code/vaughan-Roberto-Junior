@@ -1,19 +1,25 @@
 
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import './index.css';
+import DivInit from './pages/DivInit/DivInit';
 import Router from './route/Routes';
 
-const DivApp = styled.div`
-  width: 100%;
-`
 
 
 function App() {
 
+  const [state, setState] = useState(true);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setState(false);
+    },2000)
+  },[])
+
   return (
-    <DivApp>
-      <Router />
-    </DivApp>
+    <>
+      {state ? <DivInit/> : <Router />}
+    </>
   );
 }
 

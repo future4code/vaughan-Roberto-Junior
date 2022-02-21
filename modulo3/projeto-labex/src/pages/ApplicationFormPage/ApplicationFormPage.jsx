@@ -1,53 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { RequestTrips } from "../Hooks/RequestTrips";
+import { RequestTrips } from "../../Hooks/RequestTrips";
 import React, { useState, useMemo } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
-import styled from "styled-components";
 import axios from "axios";
-import useForm from "../Hooks/useForm";
-import SpaceForm from '../img/spaceForm.png'
+import useForm from "../../Hooks/useForm";
+import {DivAppForm, AppForm, DivButtons} from './styles'
 
-const DivAppForm = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const AppForm = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  flex-direction: column;
-  color: white;
-  background-image: url(${SpaceForm});
-  padding: 2%;
-  box-shadow: 1px 1px 10px cyan;
-
-  input {
-    margin: 2% 0;
-  }
-
-  .paises{
-    color: black;
-  }
-
-  @media (max-width: 600px){
-    width: 90%;
-  }
-  
-`;
-
-const DivButtons = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin: 2% auto;
-`
 
 export default function ApplicationFormPage() {
   const { form, onChange, cleanFields } = useForm({
@@ -106,7 +65,6 @@ export default function ApplicationFormPage() {
 
     return (
       <Select
-        className="paises"
         options={options}
         value={value}
         onChange={changeHandler}

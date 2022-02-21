@@ -9,5 +9,7 @@ body{
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: linear-gradient(black, #9400D3);
+  background: linear-gradient(black, #808080);
+  background-image: url('./img/spaceHome.jpeg');
+  background-size: cover;
 }

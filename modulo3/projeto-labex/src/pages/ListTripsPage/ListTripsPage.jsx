@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { RequestTrips } from "../Hooks/RequestTrips";
+import { RequestTrips } from "../../Hooks/RequestTrips";
+import LoadingGitGet from "../LoadingGifGet/LoadingGifGet";
 import {DivListTrips, DivButtons, GridCards, CardTrips} from './styles'
 
 
@@ -24,7 +25,7 @@ export default function ListTripsPage() {
       <h2>Lista De Viagens</h2>
 
       <GridCards>
-        {allTrips.length === 0 ? <h2>Nada a ser exibido</h2> :  allTrips.map((item) => {
+        {allTrips.length === 0 ? <h2>Carregando ...</h2> : allTrips.map((item) => {
           return (
             <CardTrips key={item.id}>
               <p>
