@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../Hooks/UseForm";
 import { BaseURL } from "../../Services/BaseURL";
+import { goToSignUp } from "../../Routes/RedirectPage";
 
 export default function LoginPage() {
 
@@ -35,7 +36,7 @@ export default function LoginPage() {
       <input type="text" name='email' onChange={onChange} class="form-control" placeholder="Email" />
       <input type="text" name='password' onChange={onChange} class="form-control" placeholder="Senha" />
       <button>Fazer Login</button>
-      <button>Cadastrar-se</button>
+      <button onClick={() => goToSignUp(navigate)}>Cadastrar-se</button>
     </form>
   );
 }

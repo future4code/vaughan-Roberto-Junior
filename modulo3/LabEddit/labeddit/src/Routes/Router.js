@@ -12,7 +12,7 @@ export default function Router(){
          <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/FeedPage" element={<FeedPage />} />
-            <Route path="/PostPage" element={<PostPage />} />
+            <Route path="/PostPage/:id" element={<PostPage />} />
             <Route path="/RegisterPage" element={<RegisterPage />} />
             <Route path="*" element={<ErrorPage />} />
          </Routes>
