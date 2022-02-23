@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import useForm from "../../Hooks/UseForm";
+import useProtectedPage from "../../Hooks/UseProtectedPage";
 import { BaseURL } from "../../Services/BaseURL";
 import GetPostsFeed from "./requests";
+import { DivPostPage, DivFooterPost, FeedDetail} from './styled'
+
 
 export default function PostPage() {
+  useProtectedPage();
   const param = useParams();
   const [form, onChange, clear] = useForm({body: "" });
   const [arrPosts, setArrPosts] = useState([]);
@@ -20,7 +25,6 @@ export default function PostPage() {
     axios
       .get(`${BaseURL}/posts/${param.id}/comments`, auth)
       .then((res) => {
-        console.log(res);
         setArrPosts(res.data);
       })
       .catch((err) => {
@@ -46,20 +50,43 @@ export default function PostPage() {
 
   const PostsFeedDetails = arrPosts.map((item) => {
     return (
-      <div
+      <FeedDetail
         className="card bg-light mb-1"
-        style={{ width: "500px" }}
+        style={{ width: '80%' }}
         key={item.id}
       >
-        <div className="card-header">{item.username}</div>
+        <div className="card-header">Postado Por <b>{item.username}</b></div>
         <div className="card-body">
           <p className="card-text">{item.body}</p>
           <hr />
-          <div>
-            <p className="card-text">Curtidas: {item.voteSum}</p>
+          <DivFooterPost>
+            <p className="card-text">{item.voteSum === null ? 0 : item.voteSum} Curtidas</p>
+            <div>
+            {item.userVote === 1 ? <i
+              className="bi bi-caret-up-fill"
+              style={{ fontSize: "2rem" }}
+              // onClick={() => VoteValidate(item.id, 1)}
+            /> : <i
+            className="bi bi-caret-up "
+            style={{ fontSize: "2rem" }}
+            // onClick={() => VoteValidate(item.id, 1)}
+          />}
+           
+            {item.voteSum === null ? 0 : item.voteSum}
+
+            {item.userVote === -1 ? <i
+              className="bi bi-caret-down-fill"
+              style={{ fontSize: "2rem" }}
+              // onClick={() => VoteValidate(item.id, -1)}
+            /> : <i
+            className="bi bi-caret-down "
+            style={{ fontSize: "2rem" }}
+            // onClick={() => VoteValidate(item.id, -1)}
+          />}
           </div>
+          </DivFooterPost>
         </div>
-      </div>
+      </FeedDetail>
     );
   });
 
@@ -73,11 +100,11 @@ export default function PostPage() {
 }).map((item) => {
     return (
     <div
-    className="card bg-light mb-1"
-    style={{ width: "500px" }}
+    className="card bg-light mb-4"
+    style={{ width: "80%" }}
     key={item.id}
   >
-    <div className="card-header">{item.username}</div>
+    <div className="card-header">Postado Por <b>{item.username}</b></div>
     <div className="card-body">
       <h5 className="card-title">{item.title}</h5>
       <p className="card-text">{item.body}</p>
@@ -86,11 +113,10 @@ export default function PostPage() {
  )
 })
 
-console.log(PostDetailId);
 
   return (
-    <p>
-        {PostDetailId   }
+    <DivPostPage>
+        {PostDetailId}
       <form onSubmit={postComment}>
         <div className="input-group">
           <span className="input-group-text">Escreva Seu Comentário</span>
@@ -101,10 +127,10 @@ console.log(PostDetailId);
             onChange={onChange}
           ></textarea>
         </div>
-        <button>Postar</button>
+        <button className="btn btn-info">Postar</button>
       </form>
       <br />
-      <p>{PostsFeedDetails}</p>
-    </p>
+      {PostsFeedDetails}
+    </DivPostPage>
   );
 }

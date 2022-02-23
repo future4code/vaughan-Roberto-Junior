@@ -22,7 +22,7 @@ export default function GetPostsFeed() {
 
 export function CreatePost(form) {
   const [msgRequest, setMsgRequest] = useState("");
-
+  
   const PostPost = () => {
     const auth = { headers: { Authorization: localStorage.getItem("token") } };
     axios

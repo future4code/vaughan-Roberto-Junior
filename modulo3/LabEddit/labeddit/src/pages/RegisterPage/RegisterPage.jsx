@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import useForm from "../../Hooks/UseForm";
 import { goToFeed } from "../../Routes/RedirectPage";
 import { BaseURL } from "../../Services/BaseURL";
+import {DivRegister} from './styled'
+
 
 export default function RegisterPage() {
 
@@ -28,30 +30,38 @@ export default function RegisterPage() {
 
 
   return (
+    <DivRegister>
     <form onSubmit={OnSubmitRegister}>
       <h1>Registre-se</h1>
       <input
         type="text"
         name="username"
         onChange={onChange}
+        value={form.username}
         className="form-control"
         placeholder="Nome de Usuário"
+        required
       />
       <input
         type="email"
         name="email"
         onChange={onChange}
+        value={form.email}
         className="form-control"
         placeholder="Email"
+        required
       />
       <input
         type="text"
         name="password"
         onChange={onChange}
+        value={form.password}
         className="form-control"
         placeholder="Senha"
+        required
       />
-      <button>Cadastrar-se</button>
+      <button className="btn btn-primary">Cadastre-se</button>
     </form>
+    </DivRegister>
   );
 }
