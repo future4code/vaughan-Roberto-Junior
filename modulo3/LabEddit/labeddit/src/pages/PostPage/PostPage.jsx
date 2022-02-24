@@ -1,136 +1,93 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../Hooks/UseForm";
 import useProtectedPage from "../../Hooks/UseProtectedPage";
 import { BaseURL } from "../../Services/BaseURL";
-import GetPostsFeed from "./requests";
-import { DivPostPage, DivFooterPost, FeedDetail} from './styled'
-
+import NavBar from "../FeedPage/components/NavBar";
+import PostDetailComment from "./components/PostDetailComment";
+import PostDetailId from "./components/PostDetailId";
+import GetPostsFeed, { DeleteVoteComment, GetPostComment, PostVoteComment } from "./requests";
+import {goToFeed} from '../../Routes/RedirectPage'
+import {
+  DivPostPage,
+  DivMasterPost,
+} from "./styled";
 
 export default function PostPage() {
   useProtectedPage();
   const param = useParams();
-  const [form, onChange, clear] = useForm({body: "" });
-  const [arrPosts, setArrPosts] = useState([]);
-  const arrPostsId = GetPostsFeed();
+  const navigate = useNavigate();
+  const [form, onChange, clear] = useForm({ body: "" });
+  const [arrPosts, AttComment] = GetPostComment(param);
+  const [arrPostsId, GetPostsAtt] = GetPostsFeed();
 
-  useEffect(() => {
-    GetPostComment();
-  }, []);
+  console.log(arrPosts);
 
-  const GetPostComment = () => {
-    const auth = { headers: { Authorization: localStorage.getItem("token") } };
-    axios
-      .get(`${BaseURL}/posts/${param.id}/comments`, auth)
-      .then((res) => {
-        setArrPosts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const VoteValidate = (id, dir) => {
+    const newArr = arrPosts.filter((item) => {
+      return item.id === id;
+    });
+
+    if (
+      (dir === 1 && newArr[0].userVote === 1) ||
+      (dir === -1 && newArr[0].userVote === -1)
+    ) {
+      DeleteVoteComment(id, AttComment);
+      return false;
+    }
+
+    PostVoteComment(id, dir, AttComment);
   };
+
 
   const CreateComment = () => {
     const auth = { headers: { Authorization: localStorage.getItem("token") } };
     axios
       .post(`${BaseURL}/posts/${param.id}/comments`, form, auth)
       .then((res) => {
-        console.log(res);
-        alert('Comentário Criado Com Sucesso !');
-        GetPostComment();
+        alert("Comentário Criado Com Sucesso !");
+        AttComment();
       })
       .catch((err) => {
-        alert('Ops! Falha ao comentar')
+        alert("Ops! Falha ao comentar");
         console.log(err);
-        GetPostComment();   
+        AttComment();
       });
   };
 
-  const PostsFeedDetails = arrPosts.map((item) => {
-    return (
-      <FeedDetail
-        className="card bg-light mb-1"
-        style={{ width: '80%' }}
-        key={item.id}
-      >
-        <div className="card-header">Postado Por <b>{item.username}</b></div>
-        <div className="card-body">
-          <p className="card-text">{item.body}</p>
-          <hr />
-          <DivFooterPost>
-            <p className="card-text">{item.voteSum === null ? 0 : item.voteSum} Curtidas</p>
-            <div>
-            {item.userVote === 1 ? <i
-              className="bi bi-caret-up-fill"
-              style={{ fontSize: "2rem" }}
-              // onClick={() => VoteValidate(item.id, 1)}
-            /> : <i
-            className="bi bi-caret-up "
-            style={{ fontSize: "2rem" }}
-            // onClick={() => VoteValidate(item.id, 1)}
-          />}
-           
-            {item.voteSum === null ? 0 : item.voteSum}
-
-            {item.userVote === -1 ? <i
-              className="bi bi-caret-down-fill"
-              style={{ fontSize: "2rem" }}
-              // onClick={() => VoteValidate(item.id, -1)}
-            /> : <i
-            className="bi bi-caret-down "
-            style={{ fontSize: "2rem" }}
-            // onClick={() => VoteValidate(item.id, -1)}
-          />}
-          </div>
-          </DivFooterPost>
-        </div>
-      </FeedDetail>
-    );
-  });
 
   const postComment = (e) => {
-      e.preventDefault();
-      CreateComment();
-  }
-
-  const PostDetailId = arrPostsId.filter((item) =>{
-    return item.id === param.id
-}).map((item) => {
-    return (
-    <div
-    className="card bg-light mb-4"
-    style={{ width: "80%" }}
-    key={item.id}
-  >
-    <div className="card-header">Postado Por <b>{item.username}</b></div>
-    <div className="card-body">
-      <h5 className="card-title">{item.title}</h5>
-      <p className="card-text">{item.body}</p>
-      </div>
-      </div>
- )
-})
-
+    e.preventDefault();
+    CreateComment();
+  };
 
   return (
-    <DivPostPage>
-        {PostDetailId}
-      <form onSubmit={postComment}>
-        <div className="input-group">
-          <span className="input-group-text">Escreva Seu Comentário</span>
-          <textarea
-            className="form-control"
-            aria-label="With textarea"
-            name="body"
-            onChange={onChange}
-          ></textarea>
-        </div>
-        <button className="btn btn-info">Postar</button>
-      </form>
-      <br />
-      {PostsFeedDetails}
-    </DivPostPage>
+    <DivMasterPost>
+      <NavBar/>
+      <DivPostPage>
+       <button class="btn btn-dark" onClick={() => goToFeed(navigate)}>Voltar</button>
+        <PostDetailId
+          arrPostsId={arrPostsId}
+          param={param}
+        />
+        <form onSubmit={postComment}>
+          <div className="input-group">
+            <span className="input-group-text">Escreva Seu Comentário</span>
+            <textarea
+              className="form-control"
+              aria-label="With textarea"
+              name="body"
+              onChange={onChange}
+            ></textarea>
+          </div>
+          <button className="btn btn-info">Postar</button>
+        </form>
+        <br />
+        <PostDetailComment
+         arrPosts={arrPosts}
+         VoteValidate={VoteValidate}
+        />
+      </DivPostPage>
+    </DivMasterPost>
   );
 }

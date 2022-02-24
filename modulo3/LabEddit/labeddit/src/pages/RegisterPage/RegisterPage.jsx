@@ -60,7 +60,7 @@ export default function RegisterPage() {
         placeholder="Senha"
         required
       />
-      <button className="btn btn-primary">Cadastre-se</button>
+      <button className="btn btn-primary">Cadastrar</button>
     </form>
     </DivRegister>
   );

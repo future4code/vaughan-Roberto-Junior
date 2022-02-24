@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import { useNavigate} from 'react-router-dom'
 import { goToLogin } from '../Routes/RedirectPage'
 
+
+
 const useProtectedPage = () => {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token')

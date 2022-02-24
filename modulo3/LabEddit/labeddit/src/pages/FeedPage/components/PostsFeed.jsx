@@ -1,19 +1,20 @@
 import { CardFeedPost, DivComentButton } from "../styled";
 import GifLoading from "../../../img/loading.gif";
+import moment from "moment";
 
 export default function PostsFeed(props) {
 
   const arrPosts = props.arrPosts;
 
-  const Posts = arrPosts.map((item) => {
+  const Posts = arrPosts.map((item) => { 
       return (
     <CardFeedPost
       className="card bg-light mb-1"
-      style={{ width: "80%" }}
       key={item.id}
     >
       <div className="card-header" onClick={() => props.PostDetails(item.id)}>
-        Postado Por <b>{item.username}</b>
+        <div>Postado Por <b>{item.username}</b></div>
+        {moment(item.createdAt).startOf('hour').fromNow()}
       </div>
       <div className="card-body">
         <h5 className="card-title">{item.title}</h5>
@@ -54,7 +55,7 @@ export default function PostsFeed(props) {
         </div>
         {item.commentCount
           ? `${item.commentCount} Comentários`
-          : "Nenhum Comentário"}
+          : "Nenhum Comentário"}       
       </DivComentButton>
     </CardFeedPost>
       )

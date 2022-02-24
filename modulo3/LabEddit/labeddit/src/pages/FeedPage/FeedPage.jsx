@@ -1,23 +1,23 @@
-import GetPostsFeed from "./requests";
-import { CreatePost } from "./requests";
-import { DivFeed } from "./styled";
-import axios from "axios";
-import { BaseURL } from "../../Services/BaseURL";
+import GetPostsFeed, { DeleteVote } from "./requests";
+import { CreatePost, PostVote} from "./requests";
+import { DivFeed, FirstDivFeed} from "./styled";
 import useForm from "../../Hooks/UseForm";
 import { useNavigate } from "react-router-dom";
 import useProtectedPage from "../../Hooks/UseProtectedPage";
 import PostsFeed from "./components/PostsFeed";
 import FormPost from "./components/FormPost";
+import NavBar from "./components/NavBar";
 
 export default function FeedPage() {
-
+  
   useProtectedPage();
-
-  const [form, onChange, clear] = useForm({ title: "", body: "" });
   const navigate = useNavigate();
 
-  const arrPosts = GetPostsFeed();
-  const [msgPost, functionPost] = CreatePost(form);
+  const [form, onChange, clear] = useForm({ title: "", body: "" });
+
+  const [arrPosts, GetPostsAtt] = GetPostsFeed();
+  const [msgPost, functionPost] = CreatePost(form, GetPostsAtt);
+
 
   const PostDetails = (id) => {
     navigate(`/PostPage/${id}`);
@@ -32,44 +32,11 @@ export default function FeedPage() {
       (dir === 1 && newArr[0].userVote === 1) ||
       (dir === -1 && newArr[0].userVote === -1)
     ) {
-      DeleteVote(id, dir);
+      DeleteVote(id, dir, GetPostsAtt);
       return false;
     }
 
-    PostVote(id, dir);
-  };
-
-  const PostVote = (id, dir) => {
-    const auth = { headers: { Authorization: localStorage.getItem("token") } };
-    const body = {
-      direction: dir,
-    };
-
-    axios
-      .post(`${BaseURL}/posts/${id}/votes`, body, auth)
-      .then((resp) => {
-        console.log(resp);
-        if (dir === 1) {
-          alert("Voto Positivo");
-        } else {
-          alert("Voto Negativo");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const DeleteVote = (id, dir) => {
-    const auth = { headers: { Authorization: localStorage.getItem("token") } };
-    axios
-      .delete(`${BaseURL}/posts/${id}/votes`, auth)
-      .then((res) => {
-        alert("Voto Deletado");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    PostVote(id, dir, GetPostsAtt);
   };
 
   const submitPost = (e) => {
@@ -78,20 +45,22 @@ export default function FeedPage() {
     clear();
   };
 
-  console.log(arrPosts);
-
   return (
-    <DivFeed>
-      <FormPost 
-      submitPost={submitPost} 
-      onChange={onChange} 
-      form={form} />
-      
-      <PostsFeed
-        arrPosts={arrPosts}
-        PostDetails={PostDetails}
-        VoteValidate={VoteValidate}
-      />
-    </DivFeed>
+    <FirstDivFeed>
+      <NavBar />
+      <DivFeed>
+        <FormPost 
+        submitPost={submitPost} 
+        onChange={onChange} 
+        form={form} 
+        />
+
+        <PostsFeed
+          arrPosts={arrPosts}
+          PostDetails={PostDetails}
+          VoteValidate={VoteValidate}
+        />
+      </DivFeed>
+    </FirstDivFeed>
   );
 }

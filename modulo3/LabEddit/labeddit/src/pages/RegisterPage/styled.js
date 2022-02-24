@@ -26,4 +26,9 @@ export const DivRegister = styled.div`
   form > button {
     width: 100%;
   }
+
+  @media (max-width: 600px){
+    width: 100%;
+    margin-top: 20%;
+  }
 `
