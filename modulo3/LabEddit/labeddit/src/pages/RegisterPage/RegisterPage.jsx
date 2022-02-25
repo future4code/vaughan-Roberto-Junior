@@ -53,14 +53,16 @@ export default function RegisterPage() {
       />
       <input
         type="text"
-        name="password"
+        name="password"       
         onChange={onChange}
         value={form.password}
         className="form-control"
         placeholder="Senha"
+        pattern={"^.{8,30}"}
+        title='Senha Deve Ter no Minimo 8 e no Máximo 30'
         required
       />
-      <button className="btn btn-primary">Cadastrar</button>
+      <button className="btn btn-primary" >Cadastrar</button>
     </form>
     </DivRegister>
   );
