@@ -5,10 +5,17 @@ import { DivLogin } from "../styled";
 
 export default function FormLoginPage(props){
 
+  const state = props.state;
+
     
   const navigate = useNavigate();
     return(
         <DivLogin>
+        {!state ?
+        <div className="alert alert-danger" role="alert">
+           Usuário Não Encontrado !
+        </div> :
+        null}
         <form onSubmit={props.OnSubmitLogin}>
           <h1>Faça seu login</h1>
           <input

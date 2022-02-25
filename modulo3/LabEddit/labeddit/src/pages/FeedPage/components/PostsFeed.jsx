@@ -20,6 +20,15 @@ export default function PostsFeed(props) {
         <h5 className="card-title">{item.title}</h5>
         <p className="card-text">{item.body}</p>
       </div>
+      {props.idVote === item.id && props.stateVote === 'Positive' ? <div className="alert alert-primary" role="alert">
+                  Voto Positivo
+      </div> : null}
+      {props.idVote === item.id && props.stateVote === 'Negative' ? <div className="alert alert-danger" role="alert">
+                  Voto Negativo
+      </div> : null}
+      {props.idVoteDel === item.id && props.stateVoteDel === 'Delete' ? <div className="alert alert-dark" role="alert">
+                  Voto Deletado
+      </div> : null}
       <hr />
       <DivComentButton>
         <div>
@@ -63,7 +72,7 @@ export default function PostsFeed(props) {
 
   return (
   <>
-    {Posts.length === 0 ? <img src={GifLoading} /> : Posts}
+    {props.loading ? <img src={GifLoading} /> : Posts}
   </>
   )
 }

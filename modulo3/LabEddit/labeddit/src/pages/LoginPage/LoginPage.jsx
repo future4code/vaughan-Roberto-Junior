@@ -8,20 +8,22 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const [form, onChange, clear] = useForm({ email: "", password: "" });
+  const [state, loginPage] = LoginAction(form, clear, navigate);
+  
 
   const OnSubmitLogin = (e) => {
     e.preventDefault();
-    LoginAction(form, clear, navigate);
+    loginPage();
   };
-
 
   return (
     <PricipalLogin>
-      <TitleHome><span>Lab</span><i>Eddit</i></TitleHome>
+      <TitleHome><span>Lab</span><b>Eddit</b></TitleHome>
       <FormLoginPage 
       OnSubmitLogin={OnSubmitLogin}
       form={form}
       onChange={onChange}
+      state={state}
       />
     </PricipalLogin>
   );

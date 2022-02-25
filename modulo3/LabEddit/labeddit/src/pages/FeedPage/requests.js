@@ -2,17 +2,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseURL } from "../../Services/BaseURL";
 
-export default function GetPostsFeed() {
+export default function GetPostsFeed(size, page) {
   const [arrPosts, setArrPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {GetPostsAtt()}, []);
+  useEffect(() => {
+    GetPostsAtt(size, page); 
+  }, []);
 
-    const GetPostsAtt = () => {
+    const GetPostsAtt = (size, page, noAtt) => {  
+      setLoading(noAtt ? false : true);
       const auth = { headers: { Authorization: localStorage.getItem("token") } };
       axios
-        .get(`${BaseURL}/posts`, auth)
+        .get(`${BaseURL}/posts?page=${page}&size=${size}`, auth)
         .then((res) => {
           setArrPosts(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -20,20 +25,22 @@ export default function GetPostsFeed() {
     }
   
 
-  return [arrPosts, GetPostsAtt];
+  return [arrPosts, GetPostsAtt, loading];
 }
 
 export function CreatePost(form, GetPostsAtt) {
   
-  const [msgRequest, setMsgRequest] = useState("");
+  const [msgRequest, setMsgRequest] = useState(false);
   
   const PostPost = () => {
     const auth = { headers: { Authorization: localStorage.getItem("token") } };
     axios
       .post(`${BaseURL}/posts`, form, auth)
       .then((res) => {
-        setMsgRequest("Post Criado Com Sucesso");
-        alert("Post Criado Com Sucesso");
+        setMsgRequest(true);
+        setTimeout(()=>{
+          setMsgRequest(false);
+        }, 3000)
         GetPostsAtt();
       })
       .catch((err) => {
@@ -49,36 +56,73 @@ export function CreatePost(form, GetPostsAtt) {
 
 
 export const PostVote = (id, dir, GetPostsAtt) => {
-  const auth = { headers: { Authorization: localStorage.getItem("token") } };
-  const body = {
+   
+  const [stateVote, setStateVote] = useState(false);
+  const [idVote, setIdVote] = useState(null);
+
+  const VoteFunction = (id, dir, GetPostsAtt) => {
+
+    const auth = { headers: { Authorization: localStorage.getItem("token") } };
+    const body = {
     direction: dir,
   };
-
-  axios
+      
+    axios
     .post(`${BaseURL}/posts/${id}/votes`, body, auth)
     .then((resp) => {
       if (dir === 1) {
-        alert("Voto Positivo");
-        GetPostsAtt();
+        setStateVote('Positive');
+        setTimeout(()=>{
+          setStateVote(null);
+        }, 3000)
+        setIdVote(id);
+        GetPostsAtt(true, true, true);
       } else {
-        alert("Voto Negativo");
-        GetPostsAtt();
+        setStateVote('Negative');
+        setTimeout(()=>{
+          setStateVote(null);
+        }, 3000)
+        setIdVote(id);
+        GetPostsAtt(true, true, true);
       }
     })
     .catch((err) => {
       console.log(err);
     });
+
+  
+  }
+
+  return [stateVote, VoteFunction, idVote];
+  
 };
 
 export const DeleteVote = (id, dir, GetPostsAtt) => {
+
+
+  const [stateVoteDel, setStateVoteDel] = useState(false);
+  const [idVoteDel, setIdVoteDel] = useState(null);
+
+
+  const functionDelete = (id, dir, GetPostsAtt) => {
+
   const auth = { headers: { Authorization: localStorage.getItem("token") } };
   axios
     .delete(`${BaseURL}/posts/${id}/votes`, auth)
     .then((res) => {
-      alert("Voto Deletado");
-      GetPostsAtt();
+      setStateVoteDel('Delete');
+      setTimeout(()=>{
+        setStateVoteDel(null);
+      }, 3000)
+      setIdVoteDel(id);
+      GetPostsAtt(true, true, true);
     })
     .catch((err) => {
       console.log(err);
     });
+
+  }
+
+  return [stateVoteDel, functionDelete, idVoteDel];
+
 };

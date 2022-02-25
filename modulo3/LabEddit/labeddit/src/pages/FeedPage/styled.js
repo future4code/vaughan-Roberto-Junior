@@ -14,7 +14,7 @@ export const FirstDivFeed = styled.div`
     padding: 0 2%;
     top: 0;
     position: sticky;
-    z-index: 1; 
+    z-index: 3; 
     box-shadow: 0 8px 32px 0 rgba( 31, 45, 100, 0.80 );
   }
 
@@ -22,6 +22,7 @@ export const FirstDivFeed = styled.div`
     display: flex;
     justify-content: space-between;
   }
+
 `
 
 export const DivFeed = styled.div`
@@ -45,6 +46,15 @@ export const DivFeed = styled.div`
     
   @media (max-width: 600px){
     width: 100%;
+
+    .input-group-text{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-weight: bold;
+      text-align: center;
+    }
   }
 `
 
@@ -75,7 +85,8 @@ export const GridPosts = styled.div`
 `;
 
 export const CardFeedPost = styled.div`
-  margin: 5% 0;
+  margin-bottom: 10%;
+  margin-top: 2%;
   width: 80%;
 
   b{
@@ -92,6 +103,42 @@ export const TitleNav = styled.div`
 
   i{
     margin: 0 10%;
+  }
+
+`
+
+export const PaginationStyle = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 0;
+    border: 0;
+    margin-top: 2%;
+    text-decoration: none;
+    z-index: 0;
+
+    ul{
+       margin: 0;
+       padding: 0;
+    }
+  }
+
+  .page-link{
+    background-color: #20B2AA;
+    color: white;
+    border-color: black;
+
+    :hover{
+      cursor: pointer;
+      background-color: black;
+    }
   }
 
 `

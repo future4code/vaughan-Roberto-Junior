@@ -1,10 +1,20 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { BaseURL } from "../../Services/BaseURL";
 
 
   export const LoginAction = (form, clear, navigate) => {
 
-    axios
+    const [state, setState] = useState(true);
+
+    // useEffect(()=>{
+    //   loginPage();
+    // },[])
+
+
+const loginPage = () => {
+
+  axios
       .post(`${BaseURL}/users/login`, form)
       .then((res) => {
           console.log('deu certo !');
@@ -13,8 +23,16 @@ import { BaseURL } from "../../Services/BaseURL";
         navigate("/FeedPage");
       })
       .catch((err) => {
-        alert("Usuario Não Encontrado !");
+          setState(false);
+        setTimeout(() =>{
+          setState(true);
+        }, 3000)       
         clear();
         console.log(err);
       });
+
+}
+    
+
+      return [state, loginPage]; 
   };

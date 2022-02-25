@@ -1,4 +1,5 @@
 import moment from "moment";
+import loading2 from '../../../img/loading2.gif'
 
 
 export default function PostDetailId(props){
@@ -27,6 +28,8 @@ const PostDetailId = props.arrPostsId
     });
 
     return(
-        PostDetailId
+      <>
+        {PostDetailId.length === 0 ? <img src={loading2} width='10%' /> : PostDetailId}
+      </>
     )
 }

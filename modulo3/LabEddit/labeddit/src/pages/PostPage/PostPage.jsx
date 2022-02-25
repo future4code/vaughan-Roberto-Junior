@@ -1,32 +1,28 @@
-import axios from "axios";
+
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../Hooks/UseForm";
 import useProtectedPage from "../../Hooks/UseProtectedPage";
-import { BaseURL } from "../../Services/BaseURL";
 import NavBar from "../FeedPage/components/NavBar";
 import PostDetailComment from "./components/PostDetailComment";
 import PostDetailId from "./components/PostDetailId";
-import GetPostsFeed, { DeleteVoteComment, GetPostComment, PostVoteComment } from "./requests";
+import { DeleteVoteComment, GetPostComment, PostVoteComment, CreateComment} from "./requests";
 import {goToFeed} from '../../Routes/RedirectPage'
-import {
-  DivPostPage,
-  DivMasterPost,
-} from "./styled";
+import { DivPostPage, DivMasterPost } from "./styled";
+import FormComment from "./components/FormComment";
+import GetPostsFeed from "../FeedPage/requests";
 
 export default function PostPage() {
   useProtectedPage();
   const param = useParams();
   const navigate = useNavigate();
   const [form, onChange, clear] = useForm({ body: "" });
-  const [arrPosts, AttComment] = GetPostComment(param);
-  const [arrPostsId, GetPostsAtt] = GetPostsFeed();
-
-  console.log(arrPosts);
+  const [arrPostsComment, AttComment] = GetPostComment(param);
+  const [arrPostsId, GetPostsAtt, loading] = GetPostsFeed();
 
   const VoteValidate = (id, dir) => {
-    const newArr = arrPosts.filter((item) => {
+    const newArr = arrPostsComment.filter((item) => {
       return item.id === id;
-    });
+    }); 
 
     if (
       (dir === 1 && newArr[0].userVote === 1) ||
@@ -40,51 +36,27 @@ export default function PostPage() {
   };
 
 
-  const CreateComment = () => {
-    const auth = { headers: { Authorization: localStorage.getItem("token") } };
-    axios
-      .post(`${BaseURL}/posts/${param.id}/comments`, form, auth)
-      .then((res) => {
-        alert("Comentário Criado Com Sucesso !");
-        AttComment();
-      })
-      .catch((err) => {
-        alert("Ops! Falha ao comentar");
-        console.log(err);
-        AttComment();
-      });
-  };
-
-
   const postComment = (e) => {
     e.preventDefault();
-    CreateComment();
+    CreateComment(param, form, AttComment, clear);
   };
 
   return (
     <DivMasterPost>
       <NavBar/>
       <DivPostPage>
-       <button class="btn btn-dark" onClick={() => goToFeed(navigate)}>Voltar</button>
+       <button className="btn btn-dark" onClick={() => goToFeed(navigate)}>Voltar</button>
         <PostDetailId
           arrPostsId={arrPostsId}
           param={param}
         />
-        <form onSubmit={postComment}>
-          <div className="input-group">
-            <span className="input-group-text">Escreva Seu Comentário</span>
-            <textarea
-              className="form-control"
-              aria-label="With textarea"
-              name="body"
-              onChange={onChange}
-            ></textarea>
-          </div>
-          <button className="btn btn-info">Postar</button>
-        </form>
-        <br />
+        <FormComment 
+         form={form}
+         postComment={postComment}
+         onChange={onChange}
+        />
         <PostDetailComment
-         arrPosts={arrPosts}
+         arrPosts={arrPostsComment}
          VoteValidate={VoteValidate}
         />
       </DivPostPage>

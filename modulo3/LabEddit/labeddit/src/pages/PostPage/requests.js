@@ -1,3 +1,4 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseURL } from "../../Services/BaseURL";
@@ -87,4 +88,21 @@ import { BaseURL } from "../../Services/BaseURL";
     return [arrPosts, AttComment]
 
     
+  };
+
+
+  export const CreateComment = (param, form, AttComment, clear) => {
+    const auth = { headers: { Authorization: localStorage.getItem("token") } };
+    axios
+      .post(`${BaseURL}/posts/${param.id}/comments`, form, auth)
+      .then((res) => {
+        alert("Comentário Criado Com Sucesso !");
+        AttComment();
+        clear();
+      })
+      .catch((err) => {
+        alert("Ops! Falha ao comentar");
+        console.log(err);
+        AttComment();
+      });
   };

@@ -51,6 +51,15 @@ export const DivPostPage = styled.div`
 
     @media (max-width: 600px) {
       width: 100%;
+
+      .input-group-text{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-weight: bold;
+      text-align: center;
+      }
     }
 
     .btn-dark{
