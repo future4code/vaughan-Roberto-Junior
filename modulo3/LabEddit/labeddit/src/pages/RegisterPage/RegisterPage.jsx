@@ -59,7 +59,7 @@ export default function RegisterPage() {
         className="form-control"
         placeholder="Senha"
         pattern={"^.{8,30}"}
-        title='Senha Deve Ter no Minimo 8 e no Máximo 30'
+        title='Senha Deve Ter no Minimo 8 e No Máximo 30'
         required
       />
       <button className="btn btn-primary" >Cadastrar</button>
