@@ -1,5 +1,5 @@
 
-const clientes: {}[]= [
+const clientes: Clientes[]= [
 	{ cliente: "João", saldoTotal: 1000, debitos: [100, 200, 300] },
 	{ cliente: "Paula", saldoTotal: 7500, debitos: [200, 1040] },
 	{ cliente: "Pedro", saldoTotal: 10000, debitos: [5140, 6100, 100, 2000] },
@@ -14,7 +14,7 @@ type Clientes = {
   debitos: number[]
 }
 
-const saldoTotal = (arr: {}[]): {} => {
+const saldoTotal = (arr: Clientes[]): {} => {
    return arr.map((item: Clientes) => {
        item.saldoTotal = (item.saldoTotal) - (item.debitos.reduce((a: any, p: any) => a + p, 0));
        item.debitos = [];

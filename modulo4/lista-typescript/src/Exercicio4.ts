@@ -6,15 +6,9 @@ enum SETORES {
   }
 
 
-type Pessoas = [{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean},
-{nome: string, salário: number, setor: string, presencial: boolean}]
+type Pessoas = {nome: string, salário: number, setor: string, presencial: boolean}
 
-const Colaboradores: Pessoas = [
+const Colaboradores: Pessoas[] = [
 	{ nome: "Marcos", salário: 2500, setor: SETORES.MARKETING, presencial: true },
 	{ nome: "Maria" ,salário: 1500, setor: SETORES.VENDAS, presencial: false},
 	{ nome: "Salete" ,salário: 2200, setor: SETORES.FINANCEIRO, presencial: true},
