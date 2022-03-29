@@ -26,19 +26,9 @@ app.get("/todo/:Userid/", (req, res) => {
   let selectedUser = novaListaComId;
   let others = novaListaSemId;
 
-  // others.push(novaListaSemId);
-  // selectedUser.push(novaListaComId);
+  let todos = { selectedUser: selectedUser, others: others };
 
-//   let todos = { selectedUser: selectedUser, others: others };
-
-let todos = [];
-
-todos.push(selectedUser)
-todos.push(others)
-
-  // todos.push(selectedUser, others)
-
-  // let todos: any[] = [selectedUser, others];
 
   res.send({todos});
+
 });
