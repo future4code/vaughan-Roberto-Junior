@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { ToDoList } from './Exercicio3';
-import { Afazeres } from './Exercicio2';
 
 const app = express();
 
@@ -13,14 +12,17 @@ app.listen(3003, ()=> {
 })
 
 app.post("/createTodo", (req, res) => {
-  
-    const body = req.body;
-
-    if(body as Afazeres[]){
-      ToDoList.push(body);
-      res.send(ToDoList)
-    }else{
-      res.send('Formato Invalido')
-    }
     
+  
+   const body =  {
+    userId: Number(req.headers.authorization),
+    id: new Date().getTime(),
+    title: req.body.title,
+    completed: req.body.completed
+}
+
+      ToDoList.push(body);
+
+      res.send(ToDoList);
+
 })
