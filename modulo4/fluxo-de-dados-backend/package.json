@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node ./build/Exercicio6.js",
-    "dev": "ts-node-dev ./src/Exercicio6.ts"
+    "dev": "ts-node-dev ./src/Exercicio4.ts"
 
   },
   "keywords": [],

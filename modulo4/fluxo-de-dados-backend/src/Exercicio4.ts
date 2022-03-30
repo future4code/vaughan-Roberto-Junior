@@ -12,5 +12,28 @@ app.listen(3003, ()=> {
 })
 
 app.get("/products", (req, res) => {
-      res.send(product);
+
+        const search = String(req.query.query)
+        let status = false;
+
+        if(search){
+            for(let i = 0; i < product.length; i++){
+                if(product[i].name.toLowerCase().includes(search.toLowerCase())){
+                    res.send(product[i]);
+                    status = true;
+                }
+            }
+        }
+
+        if(search === 'undefined' || search === ''){
+          
+            res.send(product);
+
+        };
+        
+
+        if(!status){
+            res.send("Produto Não encontrado");
+        }
+
 });
