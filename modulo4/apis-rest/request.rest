@@ -1,0 +1,39 @@
+GET http://localhost:3003/usersTest
+Content-Type: application/json;
+
+###
+
+GET http://localhost:3003/user?type=normal
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/users?name=coragem
+Content-Type: application/json
+
+###
+
+POST  http://localhost:3003/createUser
+Content-Type: application/json
+
+{
+     "name": "Ruberto",
+     "email": "asdasd@gmail.com",
+     "type": "normal",
+     "age": 27
+}
+
+###
+
+PUT   http://localhost:3003/editLastUser
+Content-Type: application/json
+
+###
+
+PATCH    http://localhost:3003/reEditLastUser
+Content-Type: application/json
+
+###
+
+DELETE     http://localhost:3003/deleteUser/2
+Content-Type: application/json
