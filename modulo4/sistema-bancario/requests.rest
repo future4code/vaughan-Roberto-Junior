@@ -1,0 +1,37 @@
+POST http://localhost:3003/createAccount
+Content-Type: application/json
+
+{
+    "name": "Roberto Mariooooooo",
+    "CPF": "043.901.621-59",
+    "nascimento": "09/05/1900"
+}
+
+###
+
+GET http://localhost:3003/allAccount
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3003/addBalance
+Content-Type: application/json
+
+{
+    "name": "Roberto Mariooooooo",
+    "CPF": "043.901.621-59",
+    "saldo": 399
+}
+
+###
+
+PUT http://localhost:3003/payAccount
+Content-Type: application/json
+
+{
+    "name": "Roberto Mariooooooo",
+    "CPF": "043.901.621-59",
+    "valor": 398,
+    "descricao": "Conta de Agua",
+    "dataPagamento": "02/04/2022"
+}
