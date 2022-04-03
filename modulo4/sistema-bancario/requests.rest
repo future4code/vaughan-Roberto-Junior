@@ -1,10 +1,16 @@
 POST http://localhost:3003/createAccount
 Content-Type: application/json
 
+# {
+#     "name": "Roberto Mariooooooo",
+#     "CPF": "043.901.621-59",
+#     "nascimento": "09/05/1900"
+# }
+
 {
-    "name": "Roberto Mariooooooo",
-    "CPF": "043.901.621-59",
-    "nascimento": "09/05/1900"
+    "name": "Juliano Portugal",
+    "CPF": "043.901.621-22",
+    "nascimento": "09/05/1934"
 }
 
 ###
@@ -33,5 +39,26 @@ Content-Type: application/json
     "CPF": "043.901.621-59",
     "valor": 398,
     "descricao": "Conta de Agua",
-    "dataPagamento": "02/04/2022"
+    "dataPagamento": "03/04/2022"
 }
+
+###
+
+PUT http://localhost:3003/transfer
+Content-Type: application/json
+
+{
+    "nomeRemetente": "Roberto Mariooooooo",
+    "cpfRemetente": "043.901.621-59",
+    "nomeDestinatario": "Juliano Portugal",
+    "cpfDestinatario": "043.901.621-22",
+    "valor": 350
+}
+
+###
+
+GET  http://localhost:3003/accountByCpf/043.901.621-59
+Content-Type: application/json
+
+###
+

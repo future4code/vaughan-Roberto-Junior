@@ -16,13 +16,31 @@ const server = app.listen(process.env.PORT || 3003, () => {
     }
 });
 
+//tipo de conta
+type Contas = {
+        name: string,
+        CPF: string,
+        nascimento: string,
+        saldo: number,
+        extrato: Extrato[]
+}
 
-let bank:any = [];
+//tipo do extrato
+type Extrato = {
+    valor: number,
+    data: string,
+    descricao: string
+}
 
+//criação do banco
+let bank: Contas[] = [];
+
+//endpoint que exibe todas as contas
 app.get("/allAccount", (req, res) => {
     res.send(bank)
 })
 
+//endpoint para criar uma conta
 app.post("/createAccount", (req, res) => {
     const {name, CPF, nascimento} = req.body;
 
@@ -33,7 +51,7 @@ app.post("/createAccount", (req, res) => {
         throw new Error("Verifique se os campos estão sendo  passados corretamente !");
     }  
 
-    let yearUser = nascimento.split("/");
+    let yearUser: string = nascimento.split("/");
 
     let idade: number = new Date().getFullYear() - Number(yearUser[2]);
 
@@ -43,21 +61,20 @@ app.post("/createAccount", (req, res) => {
     }
      
     //veriffica se ja existe aquele cpf no banco
-    let jaTemConta = bank.filter((item: any) => item.CPF === CPF);
+    let jaTemConta: Contas[] = bank.filter((item: any) => item.CPF === CPF);
 
-    console.log(jaTemConta);
     
     if(jaTemConta.length !== 0){
         throw new Error('Ja existe uma conta com esse CPF');
     }
 
     //cria uma nova conta
-    let newAccount = {
+    let newAccount: Contas = {
         name: name,
         CPF: CPF,
         nascimento: nascimento,
         saldo: 0,
-        extrato: [{}]
+        extrato: []
     }
 
     bank.push(newAccount);
@@ -71,11 +88,14 @@ app.post("/createAccount", (req, res) => {
 
 })
 
+
+//endpoint que adiciona saldo a conta
 app.put("/addBalance", (req, res) => {
     const {name, CPF, saldo} = req.body
 
    try{
 
+    //verifica se o saldo informado é do tipo number e se o mesmo é maior que 0 
     if(typeof saldo !== 'number' || saldo <= 0){
        throw new Error("saldo deve ser do tipo numero e maior que 0");
     }
@@ -84,7 +104,8 @@ app.put("/addBalance", (req, res) => {
         throw new Error("Verifique se os campos estão sendo  passados corretamente !");
     } 
 
-    let correntista: any = bank.filter((item: any) => {
+    //verifica se existe um correntista
+    let correntista: Contas[] = bank.filter((item: any) => {
         return item.name === name && item.CPF === CPF
     })
 
@@ -92,9 +113,16 @@ app.put("/addBalance", (req, res) => {
         throw new Error("Conta não localizada !")
     }
 
-    bank.map((item: any) => {
+    //adiciona o saldo a conta
+    bank.map((item: Contas) => {
        if(item.name === name && item.CPF === CPF){
          item.saldo = item.saldo + Number(saldo);
+         //adiciona a transação ao extrato
+         item.extrato.push({
+            valor: Number(saldo),
+            data: String(new Date().getTime()),
+            descricao: 'Depósito de dinheiro'
+         })
        }
     })
 
@@ -106,15 +134,17 @@ app.put("/addBalance", (req, res) => {
 })
 
 
+//endpoint de pagar contas
 app.put("/payAccount", (req, res) => {
     let {name, CPF, valor, descricao, dataPagamento} = req.body
-    let conta = false;    
+    let conta: boolean = false;    
 
      try {
 
+        //se for informado data de pagamento verifica se é maior que a atual
         if(dataPagamento){
            
-            let dataMaior = new Date(dataPagamento.split("/").reverse().join("/")).getTime()+86400000 < new Date().getTime()
+            let dataMaior: boolean = new Date(dataPagamento.split("/").reverse().join("/")).getTime()+86400000 < new Date().getTime()
 
             if(dataMaior){
                 throw new Error('Data Deve ser maior ou igual a data atual')
@@ -131,8 +161,10 @@ app.put("/payAccount", (req, res) => {
         }
 
         bank.map((item: any) => {
+            //faz a busca pela conta
             if(item.name === name && item.CPF === CPF){
                 conta = true;
+                //verifica se o valor da conta a pagar é maior ou igual ao saldo da conta
                 if(item.saldo >= Number(valor)){
                     item.saldo = item.saldo - Number(valor)
                     res.status(200).send('Conta paga com sucesso');
@@ -149,4 +181,98 @@ app.put("/payAccount", (req, res) => {
      }catch(err){
          res.send(err.message)
      }
+})
+
+
+//endpoint de transferencia entre contas
+app.put('/transfer', (req, res) => {
+
+    const {nomeRemetente, cpfRemetente, nomeDestinatario, cpfDestinatario, valor} = req.body
+    let achouRemetente: boolean = false;
+
+    try {
+      
+        //validações de campos
+        if(!nomeRemetente || !cpfRemetente || !nomeDestinatario || !cpfDestinatario || !valor){
+            throw new Error('Verifique se todos os campos estão sendo passados corretamente !')
+        }else if(typeof nomeRemetente !== 'string' || typeof cpfRemetente !== 'string' || typeof nomeDestinatario !== 'string' || typeof cpfDestinatario !== 'string'){
+            throw new Error('os campos de nome e cpf devem ser do tipo String')
+        }else if(typeof valor !== 'number'){
+            throw new Error('o campo valor deve ser do tipo number')
+        }
+
+        //verifica se o banco possui no minimo 2 clientes
+        if(bank.length === 0){
+            throw new Error('o Banco está vazio !')
+        }else if(bank.length === 1){
+            throw new Error('o Banco deve ter pelo menos 2 clientes')
+        }
+
+
+        //faz a validação se existe a conta de destino
+        const validarDestinatario = (): boolean => {
+            for(let j = 0; j < bank.length; j++){
+                if(bank[j].name === nomeDestinatario && bank[j].CPF === cpfDestinatario){
+                    bank[j].saldo = bank[j].saldo + valor
+                    return true
+                }
+            }
+
+            return false;
+        }
+         
+        for(let i = 0; i <= bank.length; i++){
+            //localiza o remetente
+            if(nomeRemetente === bank[i].name && cpfRemetente === bank[i].CPF){
+                achouRemetente = true;
+                //se existir verifica o saldo
+                if(valor <= bank[i].saldo){
+                    if(validarDestinatario()){
+                        //se tiver saldo e for lozalizado o destinatario faz o desconto do valor
+                        bank[i].saldo = bank[i].saldo - valor
+                        res.status(200).send('Transferencia realizada com sucesso !').end()
+                    }else{
+                        throw new Error('Conta de destino não encontrada');
+                    }
+                }else if(bank[i].saldo === 0){
+                    throw new Error(`Sua conta esta com saldo 0`)
+                }else{
+                    throw new Error(`Saldo insuficiente, insira um valor menor ou igual a ${bank[i].saldo}`)
+                }
+            }
+        }
+
+
+        if(!achouRemetente){
+            throw new Error('Conta de Envio não encontrada');
+        }
+
+
+    }catch(err){
+        res.send(err.message);
+    }
+
+})
+
+
+//Busca por CPF
+
+app.get('/accountByCpf/:cpf', (req, res) => {
+    const cpfSearch: string = req.params.cpf
+
+   try {
+
+    let existeConta: Contas[] = bank.filter((item) => {
+        return item.CPF === cpfSearch
+    })
+
+    if(existeConta.length === 0){
+        throw new Error('CPF não localizado')
+    }
+
+    res.send(existeConta);
+
+   }catch(err){
+       res.send(err.message)
+   }
 })
