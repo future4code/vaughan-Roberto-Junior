@@ -1,0 +1,65 @@
+GET http://localhost:3003/getAllActor
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/getActor/Tony Ramos
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:3003/getActor/female
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3003/editActor/001/390
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:3003/deleteActor/001
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/mediaSalary/male
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/actor/002
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/actor?gender=female
+Content-Type: application/json
+
+###
+
+POST http://localhost:3003/actor
+Content-Type: application/json
+
+   {
+        "name": "Ruberto", 
+        "salary": 100000, 
+        "birth_date": "09/05/1994", 
+        "gender": "male"
+    }
+
+###
+
+PUT http://localhost:3003/actor
+Content-Type: application/json
+
+   {
+        "id": "002", 
+        "salary": 2
+    }
+
+###
+
+DELETE http://localhost:3003/actor/002
+Content-Type: application/json
