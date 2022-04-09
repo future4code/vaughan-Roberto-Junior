@@ -18,6 +18,23 @@ PUT http://localhost:3003/user/edit/1649442954193
 Content-Type: application/json
 
 {
-	"name": "Modificado",
-	"nickname": "Tambem"
+	"name": "Roberto",
+  "nickname": "Junior"
 }
+
+###
+
+POST http://localhost:3003/task
+Content-Type: application/json
+
+{
+	"title": "Criar banco dos alunos",
+	"description": "Devemos criar o banco dos alunos para o módulo do backend",
+	"limitDate": "04/05/2020",
+	"creatorUserId": "1649442954193"
+}
+
+###
+
+GET http://localhost:3003/task/1649527499614
+Content-Type: application/json
