@@ -1,0 +1,23 @@
+POST http://localhost:3003/post
+Content-Type: application/json
+
+      {
+        "name": "Astro Dev",
+        "nickname": "Devinho",
+        "email": "Jocas@labenu.com"
+      }
+
+###
+
+GET http://localhost:3003/user/1649442954193
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3003/user/edit/1649442954193
+Content-Type: application/json
+
+{
+	"name": "Modificado",
+	"nickname": "Tambem"
+}
