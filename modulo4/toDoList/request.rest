@@ -51,5 +51,25 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3003/users?query=cas
+GET http://localhost:3003/users?query=bro
+Content-Type: application/json
+
+###
+
+POST http://localhost:3003/task/responsible
+Content-Type: application/json
+
+{
+  "taskID": "1649527499614",
+	"responsible": "1649530455539"
+}
+
+###
+
+GET http://localhost:3003/task/1649530455539/responsible
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/task/join/1649527499614
 Content-Type: application/json
