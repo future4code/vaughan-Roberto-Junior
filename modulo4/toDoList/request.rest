@@ -2,9 +2,9 @@ POST http://localhost:3003/post
 Content-Type: application/json
 
       {
-        "name": "Astro Dev",
-        "nickname": "Devinho",
-        "email": "Jocas@labenu.com"
+        "name": "Izabella",
+        "nickname": "Iza",
+        "email": "iza@labenu.com"
       }
 
 ###
@@ -28,13 +28,28 @@ POST http://localhost:3003/task
 Content-Type: application/json
 
 {
-	"title": "Criar banco dos alunos",
-	"description": "Devemos criar o banco dos alunos para o módulo do backend",
-	"limitDate": "04/05/2020",
-	"creatorUserId": "1649442954193"
+	"title": "Mandar Mensagem pra Galera",
+	"description": "todos os dias 8h da manhã e no final do dia",
+	"limitDate": "30/05/2020",
+	"creatorUserId": "1649530419106"
 }
 
 ###
 
-GET http://localhost:3003/task/1649527499614
+GET http://localhost:3003/task/1649530596877
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/users/all
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/tasks?creatorUserId=1649442954193
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/users?query=cas
 Content-Type: application/json
