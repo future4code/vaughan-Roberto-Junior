@@ -8,31 +8,38 @@ type user = {
 }
 
 
-let subscribers: user[] = [];
-let message = 'Olá';
+// let subscribers: user[] = [];
 
-async function getSubscribers(): Promise<any> {
+const getSubscribers = () => {
 
-    await axios.get(`${BaseURL}/subscribers`)
-    .then((res) => {
-        return res.data
-    })
+    return axios.get(`${BaseURL}/subscribers`)
+    .then(res => res.data)
     .catch((err)=> {
-        return err.message;
+        err.message;
     })
 
   };
 
-const sendNotifications = async (subscribers: user[], message: string): Promise<void> => {
+const getSubscribersIds = (subscribers: any) => {
+    return subscribers.map((subscriber:any) => {
+        return subscriber.id
+    })
+}
+
+const sendNotifications = async (subscribers: user[]): Promise<void> => {
   
     try {
 
-          for (const user of subscribers) {
+      for (const user of subscribers) {
 
           await axios.post(`${BaseURL}/notifications`, {
-            subscriberId: user.id,
-            message
-          });
+            subscriberId: user,
+            message: 'Olá'
+          }).then(() => {
+            console.log('Enviado !');        
+          }).catch((err) => {
+            console.log(err.message);    
+          })
         }
   
         console.log("Todas as Notificações Enviadas !");
@@ -41,8 +48,12 @@ const sendNotifications = async (subscribers: user[], message: string): Promise<
       }
   };
 
-  getSubscribers()
 
-  sendNotifications(subscribers, message);
+
+  getSubscribers()
+  .then(getSubscribersIds)
+  .then(sendNotifications);
+
+ 
 
   
