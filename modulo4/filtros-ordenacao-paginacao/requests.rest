@@ -1,0 +1,22 @@
+GET http://localhost:3003/recipes?name=paula
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/recipes/CX
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/order?name=da
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/pagination?page=3
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/orderFinally?name=ju
+Content-Type: application/json
