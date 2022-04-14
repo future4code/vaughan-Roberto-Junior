@@ -1,0 +1,75 @@
+POST http://localhost:3003/post
+Content-Type: application/json
+
+      {
+        "name": "Izabella",
+        "nickname": "Iza",
+        "email": "iza@labenu.com"
+      }
+
+###
+
+GET http://localhost:3003/user/1649442954193
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3003/user/edit/1649442954193
+Content-Type: application/json
+
+{
+	"name": "Roberto",
+  "nickname": "Junior"
+}
+
+###
+
+POST http://localhost:3003/task
+Content-Type: application/json
+
+{
+	"title": "Mandar Mensagem pra Galera",
+	"description": "todos os dias 8h da manhã e no final do dia",
+	"limitDate": "30/05/2020",
+	"creatorUserId": "1649530419106"
+}
+
+###
+
+GET http://localhost:3003/task/1649530596877
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/users/all
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/tasks?creatorUserId=1649442954193
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/users?query=bro
+Content-Type: application/json
+
+###
+
+POST http://localhost:3003/task/responsible
+Content-Type: application/json
+
+{
+  "taskID": "1649527499614",
+	"responsible": "1649530455539"
+}
+
+###
+
+GET http://localhost:3003/task/1649530455539/responsible
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/task/join/1649527499614
+Content-Type: application/json
