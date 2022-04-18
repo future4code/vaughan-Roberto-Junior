@@ -1,0 +1,8 @@
+POST http://localhost:3003/createAddress
+Content-Type: application/json
+
+{
+    "cep": "728837155555555",
+    "numero": "32",
+    "complemento": "Dobrando a Esquina" 
+}
