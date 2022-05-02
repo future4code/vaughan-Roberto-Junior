@@ -5,7 +5,7 @@ import { userDatabase } from '../Data/userDatabase'
 
 const generateId = new GenerateID()
 const hashManager = new generateHash();
-const createUser = new userDatabase();
+const dataBaseUser = new userDatabase();
 const gerarToken = new Token();
 
 export class userBusiness{
@@ -33,7 +33,7 @@ export class userBusiness{
 
             const id = generateId.generateId();
             const hashPassword = await hashManager.hash(user.password);
-            await createUser.createUser(id, user.email, user.name, hashPassword, user.role);
+            await dataBaseUser.createUser(id, user.email, user.name, hashPassword, user.role);
             
             const token = gerarToken.generateToken(payload);
             
@@ -42,5 +42,23 @@ export class userBusiness{
         }catch(error){
             throw new Error( error.message || "Error creating user. Please check your system administrator.");
         }
+    }
+
+
+
+    async getUserByEmail(user: any) {
+
+        
+        const userFromDB = await dataBaseUser.getUserByEmail(user.email);
+
+        const hashCompare = await hashManager.compare(user.password, userFromDB.password);
+
+        const accessToken = gerarToken.generateToken({ id: userFromDB.id, role: userFromDB.role});
+
+        if (!hashCompare) {
+            throw new Error("Invalid Password!");
+        }
+
+        return accessToken;
     }
 }

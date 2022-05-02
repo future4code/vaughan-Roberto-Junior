@@ -24,4 +24,24 @@ export class userDatabase extends BaseDatabase{
           throw new Error(error.sqlMessage || error.message);
         }
       }
+
+
+
+      public async getUserByEmail(email: string): Promise<any> {
+        try {
+    
+          const result = await connectionBD.connection('User_Arq')
+            .select("*")
+            .where({ email });
+
+          if(!result[0]){
+            throw new Error("Usuário não encontrado");
+          }
+          return result[0];
+          
+        } catch (error) {
+          throw new Error(error.sqlMessage || error.message);
+        }
+      }
+    
 }
