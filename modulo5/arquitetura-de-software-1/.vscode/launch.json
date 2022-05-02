@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "name": "Run Script: devv",
+            "request": "launch",
+            "command": "npm run devv",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
