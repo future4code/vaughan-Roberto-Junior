@@ -1,0 +1,20 @@
+
+POST http://localhost:3003/signup 
+Content-Type: application/json
+
+{
+	"name": "Michael Scott",
+	"email": "michael@dundermifflin.com",
+	"password": "theboss",
+	"role": "ADMIN"
+}
+
+###
+
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+	"email": "michael@dundermifflin.com",
+	"password": "theboss"
+}
