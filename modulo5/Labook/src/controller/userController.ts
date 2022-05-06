@@ -45,4 +45,37 @@ export class UserController{
          }
        }
 
+
+       static friend = async (req: Request, res: Response) => {
+         try {
+ 
+            const { id } = req.params
+      
+            const token: string = req.headers.authorization as string
+     
+            await UserBusiness.friend(id, token);
+      
+            res.status(200).send('Amizade feita com sucesso !');
+      
+         } catch (error: any) {
+            res.status(400).send(error.sqlMessage || error.message)
+         }
+       }
+
+       static unfriend = async (req: Request, res: Response) => {
+         try {
+ 
+            const { id } = req.params
+      
+            const token: string = req.headers.authorization as string
+     
+            await UserBusiness.unfriend(id, token);
+      
+            res.status(200).send('Amizade desfeita com sucesso !');
+      
+         } catch (error: any) {
+            res.status(400).send(error.sqlMessage || error.message)
+         }
+       }
+
 }

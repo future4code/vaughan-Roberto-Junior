@@ -21,6 +21,13 @@ BaseDatabase.connection.raw(`
          author_id VARCHAR(255),
          FOREIGN KEY (author_id) REFERENCES labook_users (id)
       );
+
+      CREATE TABLE IF NOT EXISTS labook_friendship(
+         author_friend VARCHAR(255) NOT NULL,
+         friend VARCHAR(255) NOT NULL,
+         FOREIGN KEY (author_friend) REFERENCES labook_users (id),
+         FOREIGN KEY (friend) REFERENCES labook_users (id)
+      );
    `)
    .then(console.log)
    .catch(console.log)

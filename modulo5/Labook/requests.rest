@@ -3,9 +3,9 @@ POST http://localhost:3003/users/signup
 Content-Type: application/json
 
 {
-    "name":"Astrodev",
-    "email": "astrodev@labenu.com",
-    "password": "astrodev123"
+    "name":"Zoro",
+    "email": "zoro@labenu.com",
+    "password": "zoro123"
 }
 
 ###
@@ -24,17 +24,31 @@ Content-Type: application/json
 
 POST http://localhost:3003/posts/create
 Content-Type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3MjE5Yzk3LWYxMTctNGVhYi1iZWM4LTlhYjU0NzNkZDJiMSIsImlhdCI6MTY1MTc3MTkyNCwiZXhwIjoxNjUxNzg5OTI0fQ.Nm8lZXvu11KERvMe_5jtEWJBzzk4xDRGjIMgS7XGYRg
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjc4MzE3LTdhNTktNGVmNC04ZWRjLWFjYTdhYjJhNzM0OCIsImlhdCI6MTY1MTg2MjA0OSwiZXhwIjoxNjUxODgwMDQ5fQ.HsAkOhfwmQOvOXdHMUEVwY1tYYrWN8jF2N96afl0TsI
 
 {
     "photo": "https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png", 
-    "description": "Minha Foto",
-    "type": "normal"
+    "description": "Uma foto Diferente",
+    "type": "event"
 }
 
 ###
 
 
-GET http://localhost:3003/posts/
+GET http://localhost:3003/posts/34751ab0-dde1-402b-8db3-0965ca5682fc
 Content-Type: application/json
-authorization:
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3MjE5Yzk3LWYxMTctNGVhYi1iZWM4LTlhYjU0NzNkZDJiMSIsImlhdCI6MTY1MTg3MzkwNCwiZXhwIjoxNjUxODkxOTA0fQ.otzzwNbtlPttDZNIrA8A51zhdko3F3LA0yI4AvmkPLk
+
+###
+
+
+POST http://localhost:3003/friend/61678317-7a59-4ef4-8edc-aca7ab2a7348
+Content-Type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3MjE5Yzk3LWYxMTctNGVhYi1iZWM4LTlhYjU0NzNkZDJiMSIsImlhdCI6MTY1MTg0ODM0NCwiZXhwIjoxNjUxODY2MzQ0fQ.AwzZctmH-pKo9YUO41IUEKpBDPP9IwauWZABHhFnTtA
+
+
+###
+
+DELETE http://localhost:3003/unfriend/61678317-7a59-4ef4-8edc-aca7ab2a7348
+Content-Type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3MjE5Yzk3LWYxMTctNGVhYi1iZWM4LTlhYjU0NzNkZDJiMSIsImlhdCI6MTY1MTg3MzkwNCwiZXhwIjoxNjUxODkxOTA0fQ.otzzwNbtlPttDZNIrA8A51zhdko3F3LA0yI4AvmkPLk

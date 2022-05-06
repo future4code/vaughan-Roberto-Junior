@@ -2,7 +2,7 @@ import { UserDatabase } from "../data/userDatabase"
 import { Authenticator } from "../services/authenticator"
 import { GenerateID } from "../services/generateID"
 import { HashManager } from "../services/hashManager"
-import { SignupInputDTO, user, userLogin } from "../types/types"
+import { authenticationData, SignupInputDTO, user, userLogin } from "../types/types"
 
 
 export class UserBusiness{
@@ -84,4 +84,40 @@ export class UserBusiness{
             throw new Error(error.message)
         }
     }
+
+
+    static friend = async (id: string, token: string) => {
+
+        try {
+    
+            if (!token) {
+                throw new Error('Deve ser passado um token de autorização !')
+             }
+
+             const tokenID: authenticationData = Authenticator.getTokenData(token);
+
+             await UserDatabase.insertFriend(tokenID.id, id);
+                
+            } catch (error: any) {
+                throw new Error(error.message)
+            }
+        }
+
+
+        static unfriend = async (id: string, token: string) => {
+
+            try {
+        
+                if (!token) {
+                    throw new Error('Deve ser passado um token de autorização !')
+                 }
+                 
+                 const tokenID: authenticationData = Authenticator.getTokenData(token);
+    
+                 await UserDatabase.deleteFriend(tokenID.id, id);
+                    
+                } catch (error: any) {
+                    throw new Error(error.message)
+                }
+            }
 }
