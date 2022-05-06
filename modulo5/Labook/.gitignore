@@ -1,3 +1,4 @@
 node_modules
 .env
 pachage-lock.json
+build

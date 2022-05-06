@@ -1,6 +1,10 @@
-import { BaseDatabase } from "../data/baseDatabase";
+import { BaseDatabase } from "./data/baseDatabase";
+
+console.log('aQUI');
+
 
 BaseDatabase.connection.raw(`
+
       CREATE TABLE IF NOT EXISTS labook_users(
          id VARCHAR(255) PRIMARY KEY,
          name VARCHAR(255) NOT NULL,
@@ -16,7 +20,7 @@ BaseDatabase.connection.raw(`
          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
          author_id VARCHAR(255),
          FOREIGN KEY (author_id) REFERENCES labook_users (id)
-      )
+      );
    `)
    .then(console.log)
    .catch(console.log)

@@ -19,12 +19,17 @@ export type authenticationData = {
     photo: string,
     description: string,
     type: POST_TYPES,
-    createdAt: Date,
-    authorId: string
+    created_at: Date,
+    author_id: string
  }
 
  export type SignupInputDTO = {
    name: string
    email: string
    password: string
+}
+
+export type userLogin = {
+   password: string,
+   email: string
 }

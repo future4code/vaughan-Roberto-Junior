@@ -1,15 +1,13 @@
 import { user } from "../types/types";
 import { BaseDatabase } from "./baseDatabase";
 
-export class UserDatabase extends BaseDatabase{
-
-   constructor(){super()}
+export class UserDatabase{
 
   static insertUser = async (User: user): Promise<user> => {
     try {
       let { id, name, email, password } = User;
 
-      await this.connection("labook_users").insert({
+      await BaseDatabase.connection("labook_users").insert({
         id,
         name,
         email,
@@ -22,7 +20,7 @@ export class UserDatabase extends BaseDatabase{
     }
   };
 
-  findByEmail = async (email: string): Promise<user> => {
+  static findByEmail = async (email: string): Promise<user> => {
     try {
       const queryResult = await BaseDatabase.connection('labook_users')
         .where({ email });
